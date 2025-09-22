@@ -7,32 +7,21 @@ export interface Figure {
 export class Triangle implements Figure {
   shape: 'triangle' = 'triangle';
 
-  color: 'red' | 'green' | 'blue';
-
-  a: number;
-
-  b: number;
-
-  c: number;
-
   constructor(
-    color: 'red' | 'green' | 'blue',
-    a: number,
-    b: number,
-    c: number,
+    public readonly color: 'red' | 'green' | 'blue',
+    public readonly a: number,
+    public readonly b: number,
+    public readonly c: number,
   ) {
+
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('side must be positive');
+      throw new Error('All triangle sides must be positive numbers');
     }
 
     if (a + b <= c || a + c <= b || b + c <= a) {
       throw new Error(`sides ${a}, ${b}, ${c} can't form a triangle`);
     }
 
-    this.color = color;
-    this.a = a;
-    this.b = b;
-    this.c = c;
   }
 
   getArea(): number {
@@ -46,17 +35,14 @@ export class Triangle implements Figure {
 export class Circle implements Figure {
   shape: 'circle' = 'circle';
 
-  color: 'red' | 'green' | 'blue';
+  constructor(
+    public readonly color: 'red' | 'green' | 'blue',
+    public readonly radius: number) {
 
-  radius: number;
-
-  constructor(color: 'red' | 'green' | 'blue', radius: number) {
     if (radius <= 0) {
       throw new Error('radius must be positive');
     }
 
-    this.color = color;
-    this.radius = radius;
   }
 
   getArea(): number {
@@ -69,20 +55,13 @@ export class Circle implements Figure {
 export class Rectangle implements Figure {
   shape: 'rectangle' = 'rectangle';
 
-  color: 'red' | 'green' | 'blue';
+  constructor(public readonly color: 'red' | 'green' | 'blue',
+  public readonly width: number,
+  public readonly height: number) {
 
-  width: number;
-
-  height: number;
-
-  constructor(color: 'red' | 'green' | 'blue', width: number, height: number) {
     if (width <= 0 || height <= 0) {
-      throw new Error('sides must be positive');
+      throw new Error('Rectangle width and height must be positive numbers');
     }
-
-    this.color = color;
-    this.width = width;
-    this.height = height;
   }
 
   getArea(): number {
@@ -93,5 +72,5 @@ export class Rectangle implements Figure {
 }
 
 export function getInfo(figure: Figure): string {
-  return `${figure.color} ${figure.shape} ${figure.getArea()}`;
+  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
